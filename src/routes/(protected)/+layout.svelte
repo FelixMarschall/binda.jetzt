@@ -1,5 +1,5 @@
 <script>
-    import "../app.css";
+    import "../../app.css";
 
 	let isMenuOpen = false;
     const currentYear = new Date().getFullYear();
