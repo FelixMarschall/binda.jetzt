@@ -33,6 +33,12 @@ jobs:
           api_location: "build/server" # Api source code path - optional
           output_location: "build/static" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+        env:
+          CLIENT_ID: ${{ vars.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REDIRECT_URI: ${{ vars.REDIRECT_URI }}
+          CLOUD_INSTANCE: ${{ vars.CLOUD_INSTANCE }}
+          TENANT_ID: ${{ vars.TENANT_ID }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
