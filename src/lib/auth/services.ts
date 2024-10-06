@@ -4,7 +4,7 @@ import {
   CryptoProvider,
   ResponseMode,
 } from "@azure/msal-node";
-import { REDIRECT_URI } from "$env/static/private";
+import { npm_config_cache, REDIRECT_URI } from "$env/static/private";
 import { dev } from "$app/environment";
 import { msalConfig } from "./config";
 
@@ -36,7 +36,9 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
     responseMode: ResponseMode.QUERY,
     codeChallenge: pkceCodes.challenge,
     codeChallengeMethod: pkceCodes.challengeMethod,
-    scopes: [],
+    scopes: ["openid"],
+    prompt: "login",
+    nonce: "defaultNonce",
     state,
   };
 
