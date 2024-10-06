@@ -46,8 +46,7 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
     event.cookies.set("csrfToken", csrfToken, cookiesConfig);
     return authCodeUrl;
   } catch (err) {
-    console.log(err);
-    throw new Error(err instanceof Error ? err.message : String(err));
+    console.error(err);
   }
 };
 
@@ -83,7 +82,7 @@ export const getTokens = async (event: RequestEvent) => {
           );
           return decodedState.redirectTo;
         } catch (err) {
-          throw new Error(err instanceof Error ? err.message : String(err));
+          console.error(err);
         }
       } else if (error) {
         throw new Error(error);
