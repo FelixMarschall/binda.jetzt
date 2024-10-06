@@ -36,9 +36,7 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
     responseMode: ResponseMode.QUERY,
     codeChallenge: pkceCodes.challenge,
     codeChallengeMethod: pkceCodes.challengeMethod,
-    scopes: ["openid"],
-    prompt: "login",
-    nonce: "defaultNonce",
+    scopes: [ ],
     state,
   };
 
@@ -49,6 +47,7 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
     return authCodeUrl;
   } catch (err) {
     console.log(err);
+    throw new Error(err instanceof Error ? err.message : String(err));
   }
 };
 
@@ -84,7 +83,7 @@ export const getTokens = async (event: RequestEvent) => {
           );
           return decodedState.redirectTo;
         } catch (err) {
-          console.log(error);
+          throw new Error(err instanceof Error ? err.message : String(err));
         }
       } else if (error) {
         throw new Error(error);
