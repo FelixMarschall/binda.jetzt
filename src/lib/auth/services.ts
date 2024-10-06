@@ -34,9 +34,10 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
   const authCodeUrlRequest = {
     redirectUri: REDIRECT_URI,
     responseMode: ResponseMode.QUERY,
+    responseType: "code+id_token",
     codeChallenge: pkceCodes.challenge,
     codeChallengeMethod: pkceCodes.challengeMethod,
-    scopes: [ ],
+    scopes: ["openid"],
     state,
   };
 
