@@ -5,9 +5,9 @@ import cookie from 'cookie';
 export const handle: Handle = async ({ event, resolve }) => {
   const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
-  if (cookies.session) {
+  if (cookies.user) {
     try {
-      event.locals.user = JSON.parse(cookies.session);
+      event.locals.user = JSON.parse(cookies.user);
     } catch (e) {
       console.error('Fehler beim Parsen des Sitzungscookies:', e);
       event.locals.user = null;
