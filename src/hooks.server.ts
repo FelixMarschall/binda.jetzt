@@ -1,12 +1,21 @@
-import { redirect, type Handle } from "@sveltejs/kit";
-import { redirectToAuthCodeUrl } from "$lib/auth/services";
+// src/hooks.server.ts
+import type { Handle } from '@sveltejs/kit';
+import cookie from 'cookie';
 
 export const handle: Handle = async ({ event, resolve }) => {
-  if (event.route.id && event.route.id.indexOf("(protected)") > 0) {
-    if (!event.cookies.get("idToken") || !event.cookies.get("accessToken")) {
-      const authCodeUrl = await redirectToAuthCodeUrl(event);
-      if (authCodeUrl) throw redirect(302, authCodeUrl);
+  const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+
+  if (cookies.session) {
+    try {
+      event.locals.user = JSON.parse(cookies.session);
+    } catch (e) {
+      console.error('Fehler beim Parsen des Sitzungscookies:', e);
+      event.locals.user = null;
     }
+  } else {
+    event.locals.user = null;
   }
-  return await resolve(event);
+
+  const response = await resolve(event);
+  return response;
 };
