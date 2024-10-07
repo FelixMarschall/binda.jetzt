@@ -4,9 +4,27 @@ import {
   CryptoProvider,
   ResponseMode,
 } from "@azure/msal-node";
-import { npm_config_cache, REDIRECT_URI } from "$env/static/private";
 import { dev } from "$app/environment";
-import { msalConfig } from "./config";
+
+import {
+  CLIENT_ID,
+  SIGN_UP_SIGN_IN_POLICY_AUTHORITY,
+  CLIENT_SECRET,
+  AUTHORITY_DOMAIN,
+  REDIRECT_URI
+} from "$env/static/private";
+
+const msalConfig = {
+  auth: {
+    clientId: CLIENT_ID,
+    // authority: CLOUD_INSTANCE + TENANT_ID,
+    authority: SIGN_UP_SIGN_IN_POLICY_AUTHORITY,
+    clientSecret: CLIENT_SECRET,
+    knownAuthorities: [AUTHORITY_DOMAIN],
+    redirectUri: REDIRECT_URI,
+    validateAuthority: false,
+  },
+};
 
 const msalInstance = new ConfidentialClientApplication(msalConfig);
 const cryptoProvider = new CryptoProvider();
@@ -34,12 +52,11 @@ export const redirectToAuthCodeUrl = async (event: RequestEvent) => {
   const authCodeUrlRequest = {
     redirectUri: REDIRECT_URI,
     responseMode: ResponseMode.QUERY,
-    responseType: "code+id_token",
+    responseType: "code",
     codeChallenge: pkceCodes.challenge,
     codeChallengeMethod: pkceCodes.challengeMethod,
-    scopes: ["openid"],
     state,
-  };
+    scopes: [],};
 
   try {
     const authCodeUrl = await msalInstance.getAuthCodeUrl(authCodeUrlRequest);
