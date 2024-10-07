@@ -23,7 +23,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
         cookies.set('accessToken', response.accessToken, { path: '/'});
       }
       if (response.account) {
-        cookies.set('session', JSON.stringify(response.account), { path: '/'});
+        cookies.set('user', JSON.stringify(response.account), { path: '/'});
       }
     } catch (error) {
       console.error('Fehler bei der Anmeldung:', error);
