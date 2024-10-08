@@ -1,6 +1,7 @@
 // src/lib/authRequests.ts
 import type { AuthorizationUrlRequest, AuthorizationCodeRequest } from '@azure/msal-node';
 import { msalConfig } from '$lib/msalConfig';
+import { CLIENT_ID } from '$env/static/private';
 
 export const APP_STATES = {
   LOGIN: 'login',
@@ -17,6 +18,6 @@ export const authCodeRequest: AuthorizationUrlRequest = {
 
 export const tokenRequest: AuthorizationCodeRequest = {
   redirectUri: msalConfig.auth.redirectUri,
-  scopes: ['openid', 'profile'],
+  scopes: ['openid', 'profile', CLIENT_ID],
   code: ''
 };
