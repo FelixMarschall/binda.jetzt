@@ -43,6 +43,7 @@ jobs:
           AUTHORITY_DOMAIN: ${{ vars.AUTHORITY_DOMAIN }}
           EDIT_PROFILE_POLICY_AUTHORITY: ${{ vars.EDIT_PROFILE_POLICY_AUTHORITY }}
           SIGN_UP_SIGN_IN_POLICY_AUTHORITY: ${{ vars.SIGN_UP_SIGN_IN_POLICY_AUTHORITY }}
+          DB_KEY: ${{ secrets.DB_KEY }}
 
 
   close_pull_request_job:
