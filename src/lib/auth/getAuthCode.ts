@@ -1,7 +1,7 @@
 
 // src/lib/getAuthCode.ts
 import { msalClient } from './msalConfig';
-import { authCodeRequest, tokenRequest } from '$lib/authRequests';
+import { authCodeRequest, tokenRequest } from '$lib/auth/authRequests';
 
 export const getAuthCodeUrl = async (authority: string, scopes: string[], state: string) => {
   authCodeRequest.authority = authority;

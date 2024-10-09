@@ -16,10 +16,10 @@
 		<div class="flex-none gap-2">
 			<input type="checkbox" value="dracula" class="toggle theme-controller" />
 			{#if data.user}
-				<a class="btn btn-ghost text-l" href="/api" data-sveltekit-preload-data>Account</a>
+				<a class="btn btn-ghost text-l" href="/account" data-sveltekit-preload-data>Account</a>
 
 				<!--button that creates a get request--> 
-				<button class="btn btn-ghost text-l" on:click={() => fetch('/api/', { method: 'GET'})}>Fetch Data</button>
+				<button class="btn btn-ghost text-l" on:click={() => fetch('/services', { method: 'GET'})}>Fetch Data</button>
 
 			{:else}
 				<a class="btn btn-ghost text-l" href="/signin">Anmelden</a>

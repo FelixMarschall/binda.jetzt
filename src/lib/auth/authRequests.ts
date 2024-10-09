@@ -1,6 +1,6 @@
 // src/lib/authRequests.ts
 import type { AuthorizationUrlRequest, AuthorizationCodeRequest } from '@azure/msal-node';
-import { msalConfig } from '$lib/msalConfig';
+import { msalConfig } from '$lib/auth/msalConfig';
 import { CLIENT_ID } from '$env/static/private';
 
 export const APP_STATES = {

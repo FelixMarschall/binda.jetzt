@@ -1,6 +1,6 @@
 // src/routes/profile/+server.ts
-import { getAuthCodeUrl } from '$lib/getAuthCode';
-import { APP_STATES } from '$lib/authRequests';
+import { getAuthCodeUrl } from '$lib/auth/getAuthCode';
+import { APP_STATES } from '$lib/auth/authRequests';
 import { EDIT_PROFILE_POLICY_AUTHORITY} from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 

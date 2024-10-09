@@ -1,6 +1,6 @@
 // src/routes/redirect/+server.ts
-import { msalClient } from '$lib/msalConfig';
-import { tokenRequest, APP_STATES } from '$lib/authRequests';
+import { msalClient } from '$lib/auth/msalConfig';
+import { tokenRequest, APP_STATES } from '$lib/auth/authRequests';
 import { redirect, type RequestHandler } from '@sveltejs/kit';
 import cookie from 'cookie';
 
@@ -10,20 +10,23 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
   const error = url.searchParams.get('error');
   const errorDescription = url.searchParams.get('error_description');
 
+  const defaultExpires = new Date();
+  defaultExpires.setHours(defaultExpires.getHours() + 1);
+
   if (state === APP_STATES.LOGIN) {
     tokenRequest.code = code!;
     try {
       const response = await msalClient.acquireTokenByCode(tokenRequest);
       if (response.account) {
-        cookies.set('user', JSON.stringify(response.account), { path: '/'});
+        cookies.set('user', JSON.stringify(response.account), { path: '/', expires: response.expiresOn ?? defaultExpires });
       }
       if (response.idToken) {
-        cookies.set('idToken', response.idToken, { path: '/'});
+        cookies.set('idToken', response.idToken, { path: '/', expires: response.expiresOn ?? defaultExpires});
       } if (response.accessToken) {
-        cookies.set('accessToken', response.accessToken, { path: '/'});
+        cookies.set('accessToken', response.accessToken, { path: '/', expires: response.expiresOn ?? defaultExpires});
       }
       if (response.account) {
-        cookies.set('user', JSON.stringify(response.account), { path: '/'});
+        cookies.set('user', JSON.stringify(response.account), { path: '/', expires: response.expiresOn ?? defaultExpires});
       }
     } catch (error) {
       console.error('Fehler bei der Anmeldung:', error);
