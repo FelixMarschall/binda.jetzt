@@ -49,12 +49,12 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
       const response = await msalClient.acquireTokenByCode(tokenRequest);
       const user = response.account?.idTokenClaims;
       const headers = new Headers();
-      headers.append(
-        'Set-Cookie',
-        cookie.serialize('session', JSON.stringify(user), {
-          path: '/'
-        })
-      );
+      // headers.append(
+      //   'Set-Cookie',
+      //   cookie.serialize('session', JSON.stringify(user), {
+      //     path: '/'
+      //   })
+      // );
       return new Response(null, {
         status: 302,
         headers: {

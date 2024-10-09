@@ -1,39 +1,36 @@
 <script>
-	import '../../app.css';
+	import '../app.css';
+	import Page from './+page.svelte';
 
 	let isMenuOpen = false;
 	const currentYear = new Date().getFullYear();
 
 	export let data;
 </script>
-
 <html lang="de" data-theme="cupcake"></html>
 <div class="min-h-screen flex flex-col items-center">
 	<div class="navbar bg-base-100 mx-auto max-w-6xl p-4 flex justify-between items-center">
 		<div class="flex-1">
-			<a class="btn btn-ghost text-xl" href="/">BinDa</a>
+			<a class="btn btn-ghost text-2xl" href="/">BinDa.jetzt</a>
 		</div>
+		
 		<div class="flex-none gap-2">
-			<input type="checkbox" value="dracula" class="toggle theme-controller" />
+			<!-- <input type="checkbox" value="dracula" class="toggle theme-controller" /> -->
 			{#if data.user}
-				<a class="btn btn-ghost text-l" href="/account" data-sveltekit-preload-data>Account</a>
-
-				<!--button that creates a get request--> 
-				<button class="btn btn-ghost text-l" on:click={() => fetch('/services', { method: 'GET'})}>Fetch Data</button>
-
+				<a class="btn btn-ghost text-xl" href="/account" data-sveltekit-preload-data>Account</a>
 			{:else}
-				<a class="btn btn-ghost text-l" href="/signin">Anmelden</a>
+				<a class="btn btn-ghost text-xl" href="/signin">Anmelden</a>
 			{/if}
 			<!-- <a class="btn btn-ghost text-l" href="/settings" >Einstellungen</a> -->
 		</div>
 	</div>
 	<!-- Main Content -->
 	<main class="flex-grow container mx-auto max-w-6xl p-4">
-		{#if data.user}
+		<!-- {#if data.user}
 			<p>Willkommen, {data.user.given_name || data.user.name}!</p>
 		{:else}
 			<a href="/signin">Anmelden</a>
-		{/if}
+		{/if} -->
 		<!-- <pre>{JSON.stringify(data.user, null, 2)}</pre> -->
 		<slot />
 	</main>
