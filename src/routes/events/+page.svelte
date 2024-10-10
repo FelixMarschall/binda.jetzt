@@ -1,44 +1,34 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
+    import type { MyEvent, MyEventsDocument } from './$types';
 
-	/** @type {Array<{ title: string, description: string }>} */
-	let myEvents = [];
+	let myEvents: MyEvent[] = [];
 	let isLoading = true;
 
 	onMount(async () => {
 		try {
 			const res = await fetch(`/events`);
-			myEvents = await res.json();
-            console.log(myEvents);
+			myEvents = (await res.json()).events;
 		} catch (error) {
 			console.error('Error fetching events:', error);
+			myEvents = []; 
 		} finally {
 			isLoading = false;
 		}
 	});
 </script>
 
-<h1 class="text-3xl font-bold">Events</h1>
+<div class="flex items-center justify-between mt-4">
+  <h1 class="text-3xl font-bold">Events</h1>
+  <a href="/create-event" class="btn btn-outline">Erstelle Event</a>
+</div>
+
 <div class="mt-6">
 	{#if isLoading}
 		<div class="flex justify-center items-center">
 			<span class="loading loading-dots loading-lg"></span>
 		</div>
 	{:else}
-		<div class="mt-4 collapse bg-base-200">
-			<input type="checkbox" />
-			<div class="collapse-title text-xl font-medium">#1 Badespaß</div>
-			<div class="collapse-content">
-				<p>hello</p>
-			</div>
-		</div>
-		<div class="mt-4 collapse bg-base-200">
-			<input type="checkbox" />
-			<div class="collapse-title text-xl font-medium">#2 Seminar</div>
-			<div class="collapse-content">
-				<p>hello</p>
-			</div>
-		</div>
 		{#each myEvents as event}
 			<div class="mt-4 collapse bg-base-200">
 				<input type="checkbox" />
