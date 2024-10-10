@@ -19,7 +19,7 @@ export const GET: RequestHandler = async ({ request, locals }) => {
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	const decodedToken = locals.jwtPayload;
 	const body = await request.json();
-	console.log('User requests database: ', decodedToken);
+	// console.log('User requests database: ', decodedToken);
 	const result = await cosmosClientSingleton.container.items.query({
 		query: 'SELECT * FROM c WHERE c.id = @id', 
 		parameters: [
