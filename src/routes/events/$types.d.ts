@@ -2,8 +2,10 @@ export type MyEvent = {
         event_id: string;
         title: string;
         description?: string;
-        date?: number;
+        date?: string;
         expiry?: number;
+        location?: string;
+        status?: string;
     };
 
 export type MyEventsDocument = {

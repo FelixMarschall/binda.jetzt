@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"@azure/static-web-apps-cli": "^2.0.1",
+		"date-fns": "^4.1.0",
 		"jwks-rsa": "^3.1.0"
 	}
 }

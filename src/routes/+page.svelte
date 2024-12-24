@@ -1,9 +1,16 @@
 <script>
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	export let data;
+	onMount(() => {
+			if (data.user) {
+				goto('/events');
+			}
+		});
 </script>
 
 {#if data.user}
-	<div class="hero min-h-screen bg-base-200">
+	<div class="hero min-h-1/2 bg-base-200">
 		<div class="hero-content text-center">
 			<div class="max-w-md">
 				<h1 class="text-5xl font-bold">Willkommen, {data.user.given_name || data.user.name}!</h1>
